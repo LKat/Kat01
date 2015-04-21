@@ -1,0 +1,19 @@
+SNPs <- read.table('/Users/claresoderquest/Documents/katrina/AllStudiesAnalysis/060710DatabaseWork/SNPList.txt', header = TRUE)
+
+DiseaseClass <- read.table('/Users/claresoderquest/Documents/katrina/AllStudiesAnalysis/060710DatabaseWork/DiseaseClassTesting.txt', header = TRUE, row.names = 1)
+
+Autoimmune <- subset(DiseaseClass, DiseaseClass$Autoimmune == 'Yes')
+
+OtherDiseases <- subset(DiseaseClass, DiseaseClass$Autoimmune == 'No')
+
+for (i in 1:nrow(Autoimmune)) {
+	autoimmune.disease <- row.names(Autoimmune)[i]
+	Autoimmune.SNPs <- subset(SNPs, (DiseaseTrait == autoimmune.disease))
+	print(Autoimmune.SNPs)
+	write.table(Autoimmune.SNPs, file = '/Users/claresoderquest/Documents/katrina/AllStudiesAnalysis/060710DatabaseWork/AutoimmuneSNPs.txt', append = TRUE, quote = FALSE, sep =  "\t")}
+
+for (j in 1:nrow(OtherDiseases)) {
+	other.disease <- row.names(OtherDiseases)[j]
+	other.SNPs <- subset(SNPs, (DiseaseTrait == other.disease))
+	print(other.SNPs)
+	write.table(other.SNPs, file = '/Users/claresoderquest/Documents/katrina/AllStudiesAnalysis/060710DatabaseWork/OtherSNPs.txt', append = TRUE, quote = FALSE, sep =  "\t")}
